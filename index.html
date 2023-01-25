@@ -25,7 +25,10 @@
                     if (!content) {
                         e.target.innerHTML = player
                         // console.log(gameOver())
-                        gameOver() && alert('gameover')
+                        if (gameOver()) {
+                            alert('gameover');
+                            cases.forEach((node) => node.innerHTML = '')
+                        }
                         player = player == 'x' ? 'o' : 'x'
                     }
 
@@ -39,7 +42,7 @@
             console.log('player: ' + player)
             let winners = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]]
             let result = false
-            return winners.some((win) => win.every((index) => values[index - 1] == player))
+            return winners.some((win) => win.every((index) => values[index - 1] == player)) || values.every((v) => v)
         }
         build();
     </script>
