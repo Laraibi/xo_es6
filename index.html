@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div id="root"></div>
+    <script>
+        let cases = []
+        let player = "x"
+        const build = () => {
+            new Array(9).fill().map((item) => cases.push(document.createElement('div')))
+            console.log(cases)
+            cases.forEach((node) => {
+                node.setAttribute('class', 'case');
+                node.addEventListener('click', (e) => {
+                    let content = e.target.innerHTML
+                    // e.target.classList.add('bg')
+                    if (!content) {
+                        e.target.innerHTML = player
+                        // console.log(gameOver())
+                        gameOver() && alert('gameover')
+                        player = player == 'x' ? 'o' : 'x'
+                    }
+
+                })
+                document.querySelector('#root').appendChild(node)
+            })
+        }
+        const gameOver = () => {
+            let values = cases.map((n) => n.innerHTML)
+            console.log(values)
+            console.log('player: ' + player)
+            let winners = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]]
+            let result = false
+            return winners.some((win) => win.every((index) => values[index - 1] == player))
+        }
+        build();
+    </script>
+
+</body>
+
+</html>
